@@ -20,7 +20,7 @@
  */
 
 'use strict';
-process.env.PAGE_ACCESS_TOKEN = 'testpp'
+process.env.PAGE_ACCESS_TOKEN = 'EAAntXPozFgQBAHk8jip5efExAb1S01CW0oB1Fj3ZAs755wPphU2CIbxHZBu8HZAafZCWZAbqf5tPJEabGMSZA7DIf5dMexRaPLZAkmXiLAyWXF24TNh9B00CVnK7pqrSHtdm15vwB9b65y20QS2nDIvfpuWxWKIOnSfHYeSdpV8jL0eRx7MtTeAksuPsdCQIsAZD'
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
 
