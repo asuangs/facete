@@ -33,6 +33,9 @@ const
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
+app.use(express.static('public'));
+app.get('/index.html', function (req, res) { res.sendFile( __dirname + "/index.html" ); })
+app.get('/', function (req, res) { res.sendFile( __dirname + "/index.html" ); })
 // Accepts POST requests at /webhook endpoint
 app.post('/webhook', (req, res) => {  
 
@@ -135,7 +138,7 @@ function handleMessage(sender_psid, received_message) {
               "subtitle": "See all our colors",
               "default_action": {
                 "type": "web_url",
-                "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+                "url": "https://facete.herokuapp.com/",
                 "messenger_extensions": false,
                 "webview_height_ratio": "tall"
               }
@@ -167,11 +170,11 @@ function handleMessage(sender_psid, received_message) {
           "template_type": "generic",
           "elements": [{
             "title": "1",
-            "image_url": 'https://popular-swan-56.loca.lt/coupon.png',
+            "image_url": 'https://facete.herokuapp.com/coupon.png',
             "buttons": [
               {
                 "type":"web_url",
-                "url":"https://petersfancybrownhats.com",
+                "url":"https://facete.herokuapp.com",
                 "title":"View Website"
               },
               {
@@ -187,7 +190,7 @@ function handleMessage(sender_psid, received_message) {
             "buttons": [
               {
                 "type":"web_url",
-                "url":"https://petersfancybrownhats.com",
+                "url":"https://facete.herokuapp.com",
                 "title":"View Website"
               },
               {
