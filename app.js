@@ -288,7 +288,7 @@ function callSendAPIList(sender_psid, response) {
     "json": request_body
   }, (err, res, body) => {
     callSendAPI(sender_psid, {
-      text: 'list完成请求'
+      text: 'list完成请求'+JSON.stringify(res)
     })
     if (!err) {
       console.log('message sent!')
@@ -314,14 +314,12 @@ function attachmentsSendAPI(sender_psid, response) {
     "json": request_body
   }, (err, res, body) => {
     callSendAPI(sender_psid, {
-      text: '完成请求'
+      text: '完成请求' + err
     })
     callSendAPI(sender_psid, {
-      text: '完成请求' + res
+      text: '完成请求' + JSON.stringify(res)
     })
-    callSendAPI(sender_psid, {
-      text: res
-    })
+    
     if (!err) {
       console.log('message sent!')
       callSendAPI(sender_psid, {
