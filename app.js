@@ -109,7 +109,7 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     response = {
-      "text": `You sent the message: "${received_message.text}". 告诉我!`
+      "text": `You sent the message: "${received_message.text}". 媒体!`
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
@@ -152,6 +152,23 @@ function handleMessage(sender_psid, received_message) {
               }
             ],
           }]
+        }
+      }
+    } 
+  }else if (received_message.text === 'phone') {
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Need further assistance? Talk to a representative",
+          "buttons":[
+            {
+              "type":"phone_number",
+              "title":"Call Representative",
+              "payload":"+15105551234"
+            }
+          ]
         }
       }
     }
