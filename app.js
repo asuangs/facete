@@ -137,8 +137,8 @@ function handleMessage(sender_psid, received_message) {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
+            "title": "1" + attachment_url,
+            "subtitle": attachment_url,
             "image_url": attachment_url,
             "buttons": [
               {
