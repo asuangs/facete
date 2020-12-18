@@ -165,7 +165,7 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
-    callSendAPI(sender_psid, response);   
+    callSendAPIList(sender_psid, response);   
   } else if (received_message.text === 'photo') {
     // Get the URL of the message attachment
     // let attachment_url = received_message.attachments[0].payload.url;
@@ -270,22 +270,51 @@ function callSendAPI(sender_psid, response) {
     }
   }); 
 }
+// 列表模板
+function callSendAPIList(sender_psid, response) {
+  // Construct the message body
+  let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": response
+  }
+
+  // Send the HTTP request to the Messenger Platform
+  request({
+    "uri": "https://graph.facebook.com/me/messages",
+    "qs": { "access_token": PAGE_ACCESS_TOKEN },
+    "method": "POST",
+    "json": request_body
+  }, (err, res, body) => {
+    if (!err) {
+      console.log('message sent!')
+    } else {
+      console.error("Unable to send message:" + err);
+    }
+  }); 
+}
 // 附件上传api
 function attachmentsSendAPI(sender_psid, response) {
   // Construct the message body
   let request_body = {
     "message": response
   }
-
+  callSendAPI(sender_psid, {
+    text: '开始请求'
+  })
   // Send the HTTP request to the Messenger Platform
   request({
-    "uri": "https://graph.facebook.com/v9.0/me/message_attachments",
+    "uri": "https://graph.facebook.com/v2.6/me/message_attachments",
     "qs": { "access_token": PAGE_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
     callSendAPI(sender_psid, {
-      text: JSON.stringify(res)
+      text: '完成请求'
+    })
+    callSendAPI(sender_psid, {
+      text: err
     })
     if (!err) {
       console.log('message sent!')
