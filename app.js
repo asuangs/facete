@@ -136,9 +136,19 @@ function handleMessage(sender_psid, received_message) {
             {
               "title": "Classic White T-Shirt",
               "subtitle": "See all our colors",
+              "image_url": "https://facete.herokuapp.com/logo.png",
               "default_action": {
                 "type": "web_url",
-                "url": "https://facete.herokuapp.com/",
+                "url": "https://facete.herokuapp.com",
+                "messenger_extensions": false,
+                "webview_height_ratio": "tall"
+              }
+            },{
+              "title": "Classic White T-Shirt",
+              "subtitle": "See all our colors",
+              "default_action": {
+                "type": "web_url",
+                "url": "https://facete.herokuapp.com",
                 "messenger_extensions": false,
                 "webview_height_ratio": "tall"
               }
@@ -154,6 +164,30 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
+  } else if (received_message.text === 'mp4') {
+    response = {
+      
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "media_type": "video",
+              "url": "https://facete.herokuapp.com/448.mp4",
+              "buttons": [
+                  {
+                    "type": "web_url",
+                    "url": "https://facete.herokuapp.com",
+                    "title": "View Website",
+                  }
+              ]
+            }
+        ]
+        }
+      }
+    }
+    
   } else if (received_message.text) { 
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
@@ -162,7 +196,7 @@ function handleMessage(sender_psid, received_message) {
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
+    // let attachment_url = received_message.attachments[0].payload.url;
     response = {
       "attachment": {
         "type": "template",
@@ -170,7 +204,7 @@ function handleMessage(sender_psid, received_message) {
           "template_type": "generic",
           "elements": [{
             "title": "1",
-            "image_url": 'https://facete.herokuapp.com/coupon.png',
+            "image_url": 'https://facete.herokuapp.com/logo.png',
             "buttons": [
               {
                 "type":"web_url",
@@ -186,7 +220,7 @@ function handleMessage(sender_psid, received_message) {
           },{
             "title": "Is this the right picture?",
             "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
+            "image_url": 'https://facete.herokuapp.com/styles/female-work.jpg',
             "buttons": [
               {
                 "type":"web_url",
