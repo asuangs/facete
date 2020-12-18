@@ -137,12 +137,16 @@ function handleMessage(sender_psid, received_message) {
           "content_type":"user_email",
         },
         {
+          "content_type":"location",
+        },
+        {
           "content_type":"text",
           "title": '按钮',
           "payload": 'sss'
         }
       ]
     }
+    callSendAPI(sender_psid, response);
   } else if(received_message.text === 'list'){
     response = {
       "attachment": {
