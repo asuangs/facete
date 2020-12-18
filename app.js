@@ -115,8 +115,29 @@ function handleMessage(sender_psid, received_message) {
           "buttons":[
             {
               "type":"phone_number",
-              "title":"Call Representative",
+              "title":"Call 15263567",
               "payload":"+15105551234"
+            }
+          ]
+        }
+      }
+    }
+  } else if(received_message.text === 'vedio'){
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"open_graph",
+          "elements":[
+             {
+              "url":"https://open.spotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+              "buttons":[
+                {
+                  "type":"web_url",
+                  "url":"https://en.wikipedia.org/wiki/Rickrolling",
+                  "title":"View More"
+                }              
+              ]      
             }
           ]
         }
@@ -126,7 +147,7 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     response = {
-      "text": `You sent the message: "${received_message.text}". 媒体1!`
+      "text": `You sent the message: "${received_message.text}". vedieo!`
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
