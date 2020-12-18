@@ -133,9 +133,9 @@ function handleMessage(sender_psid, received_message) {
         {
           "content_type":"user_phone_number",
         },
-        // {
-        //   "content_type":"user_email",
-        // },
+        {
+          "content_type":"user_email",
+        },
         // {
         //   "content_type":"location",
         // },
