@@ -131,7 +131,15 @@ function handleMessage(sender_psid, received_message) {
       "text":"Please share your location:",
       "quick_replies":[
         {
-          "content_type":"location",
+          "content_type":"user_phone_number",
+        },
+        {
+          "content_type":"user_email",
+        },
+        {
+          "content_type":"text",
+          "title": '按钮',
+          "payload": 'sss'
         }
       ]
     }
