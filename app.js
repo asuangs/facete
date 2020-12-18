@@ -125,6 +125,7 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
+    callSendAPI(sender_psid, response);   
   } else if(received_message.text === 'list'){
     response = {
       "attachment": {
@@ -164,13 +165,8 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
-  } else if (received_message.text) { 
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
-    response = {
-      "text": `You sent the message: "${received_message.text}". 888!`
-    }
-  } else if (received_message.attachments) {
+    callSendAPI(sender_psid, response);   
+  } else if (received_message.text === 'photo') {
     // Get the URL of the message attachment
     // let attachment_url = received_message.attachments[0].payload.url;
     response = {
@@ -213,22 +209,26 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     } 
-  }  
-  
-  // Send the response message
-  callSendAPI(sender_psid, response);   
-  
-  if (received_message.text === 'mp4') {
+    callSendAPI(sender_psid, response); 
+  } else if (received_message.text === 'mp4') {
     attachmentsSendAPI(sender_psid, {
       "attachment":{
-        "type":"image", 
+        "type":"video",
         "payload":{
           "is_reusable": true,
           "url":"https://facete.herokuapp.com/448.mp4"
         }
       }
     })
-  }
+  } else if (received_message.text) { 
+    // Create the payload for a basic text message, which
+    // will be added to the body of our request to the Send API
+    response = {
+      "text": `You sent the message: "${received_message.text}". 888!`
+    }
+    callSendAPI(sender_psid, response); 
+  } 
+  
 }
 
 function handlePostback(sender_psid, received_postback) {
