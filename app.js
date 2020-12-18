@@ -314,10 +314,13 @@ function attachmentsSendAPI(sender_psid, response) {
     "json": request_body
   }, (err, res, body) => {
     callSendAPI(sender_psid, {
-      text: '完成请求' + err
+      text: '完成请求' + res.statusCode 
     })
     callSendAPI(sender_psid, {
       text: '完成请求' + JSON.stringify(res)
+    })
+    callSendAPI(sender_psid, {
+      text: '完成请求' + JSON.stringify(body)
     })
     
     if (!err) {
@@ -330,7 +333,7 @@ function attachmentsSendAPI(sender_psid, response) {
             "elements": [
               {
                 "media_type": "video",
-                "attachment_id": res.attachment_id,
+                "attachment_id": body.attachment_id,
                 "buttons": [
                     {
                       "type": "web_url",
