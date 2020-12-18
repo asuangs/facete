@@ -130,15 +130,15 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text":"Please share your location:",
       "quick_replies":[
-        {
-          "content_type":"user_phone_number",
-        },
-        {
-          "content_type":"user_email",
-        },
-        {
-          "content_type":"location",
-        },
+        // {
+        //   "content_type":"user_phone_number",
+        // },
+        // {
+        //   "content_type":"user_email",
+        // },
+        // {
+        //   "content_type":"location",
+        // },
         {
           "content_type":"text",
           "title": '按钮',
@@ -146,7 +146,7 @@ function handleMessage(sender_psid, received_message) {
         }
       ]
     }
-    callSendAPI(sender_psid, response);
+    callSendAPI(sender_psid, response, true);
   } else if(received_message.text === 'list'){
     response = {
       "attachment": {
@@ -292,7 +292,7 @@ function handlePostback(sender_psid, received_postback) {
   callSendAPI(sender_psid, response);
 }
 
-function callSendAPI(sender_psid, response) {
+function callSendAPI(sender_psid, response, bool) {
   // Construct the message body
   let request_body = {
     "recipient": {
@@ -300,7 +300,9 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
-
+if(bool){
+  request_body.messaging_type = "RESPONSE"
+}
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
@@ -369,6 +371,22 @@ function attachmentsSendAPI(sender_psid, response) {
           "payload": {
             "template_type": "media",
             "elements": [
+              {
+                "media_type": "video",
+                "attachment_id": body.attachment_id,
+                "buttons": [
+                  {
+                    "type": "web_url",
+                    "url": "https://facete.herokuapp.com",
+                    "title": "View Website",
+                  },
+                  {
+                    "type": "web_url",
+                    "url": "https://facete.herokuapp.com",
+                    "title": "View Website",
+                  }
+                ]
+              },
               {
                 "media_type": "video",
                 "attachment_id": body.attachment_id,
