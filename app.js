@@ -126,7 +126,7 @@ function handleMessage(sender_psid, received_message) {
       }
     }
     callSendAPI(sender_psid, response);   
-  } else if(received_message.text === 'location') {
+  } else if(received_message.text === 'quick') {
     response = {
       "text":"Please share your location:",
       "quick_replies":[
@@ -136,14 +136,21 @@ function handleMessage(sender_psid, received_message) {
         {
           "content_type":"user_email",
         },
-        // {
-        //   "content_type":"location",
-        // },
         {
           "content_type":"text",
           "title": '按钮',
           "payload": 'sss'
         }
+      ]
+    }
+    callSendAPI(sender_psid, response, true);
+  } else if(received_message.text === 'location') {
+    response = {
+      "text":"Please share your location:",
+      "quick_replies":[
+        {
+          "content_type":"location",
+        },
       ]
     }
     callSendAPI(sender_psid, response, true);
