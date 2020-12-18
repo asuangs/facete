@@ -130,9 +130,9 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text":"Please share your location:",
       "quick_replies":[
-        // {
-        //   "content_type":"user_phone_number",
-        // },
+        {
+          "content_type":"user_phone_number",
+        },
         // {
         //   "content_type":"user_email",
         // },
@@ -371,22 +371,6 @@ function attachmentsSendAPI(sender_psid, response) {
           "payload": {
             "template_type": "media",
             "elements": [
-              {
-                "media_type": "video",
-                "attachment_id": body.attachment_id,
-                "buttons": [
-                  {
-                    "type": "web_url",
-                    "url": "https://facete.herokuapp.com",
-                    "title": "View Website",
-                  },
-                  {
-                    "type": "web_url",
-                    "url": "https://facete.herokuapp.com",
-                    "title": "View Website",
-                  }
-                ]
-              },
               {
                 "media_type": "video",
                 "attachment_id": body.attachment_id,
