@@ -105,11 +105,28 @@ function handleMessage(sender_psid, received_message) {
   let response;
   
   // Checks if the message contains text
-  if (received_message.text) {    
+  if (received_message.text === 'phone') {
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Need further assistance? Talk to a representative",
+          "buttons":[
+            {
+              "type":"phone_number",
+              "title":"Call Representative",
+              "payload":"+15105551234"
+            }
+          ]
+        }
+      }
+    }
+  } else if (received_message.text) { 
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     response = {
-      "text": `You sent the message: "${received_message.text}". 媒体!`
+      "text": `You sent the message: "${received_message.text}". 媒体1!`
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
@@ -155,24 +172,7 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     } 
-  }else if (received_message.text === 'phone') {
-    response = {
-      "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"button",
-          "text":"Need further assistance? Talk to a representative",
-          "buttons":[
-            {
-              "type":"phone_number",
-              "title":"Call Representative",
-              "payload":"+15105551234"
-            }
-          ]
-        }
-      }
-    }
-  } 
+  }  
   
   // Send the response message
   callSendAPI(sender_psid, response);    
