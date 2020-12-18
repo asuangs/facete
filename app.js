@@ -166,9 +166,8 @@ function handleMessage(sender_psid, received_message) {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "1" + attachment_url,
-            "subtitle": attachment_url,
-            "image_url": attachment_url,
+            "title": "1",
+            "image_url": 'https://popular-swan-56.loca.lt/coupon.png',
             "buttons": [
               {
                 "type":"web_url",
