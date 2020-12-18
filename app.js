@@ -109,7 +109,7 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+      "text": `You sent the message: "${received_message.text}". 告诉我!`
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
@@ -125,9 +125,25 @@ function handleMessage(sender_psid, received_message) {
             "image_url": attachment_url,
             "buttons": [
               {
+                "type":"web_url",
+                "url":"https://petersfancybrownhats.com",
+                "title":"View Website"
+              },
+              {
                 "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          },{
+            "title": "Is this the right picture?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": attachment_url,
+            "buttons": [
+              {
+                "type":"web_url",
+                "url":"https://petersfancybrownhats.com",
+                "title":"View Website"
               },
               {
                 "type": "postback",
