@@ -164,35 +164,11 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
-  } else if (received_message.text === 'mp4') {
-    response = {
-      
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [
-            {
-              "media_type": "video",
-              "url": "https://facete.herokuapp.com/448.mp4",
-              "buttons": [
-                  {
-                    "type": "web_url",
-                    "url": "https://facete.herokuapp.com",
-                    "title": "View Website",
-                  }
-              ]
-            }
-        ]
-        }
-      }
-    }
-    
   } else if (received_message.text) { 
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     response = {
-      "text": `You sent the message: "${received_message.text}". 111!`
+      "text": `You sent the message: "${received_message.text}". 888!`
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
@@ -240,7 +216,19 @@ function handleMessage(sender_psid, received_message) {
   }  
   
   // Send the response message
-  callSendAPI(sender_psid, response);    
+  callSendAPI(sender_psid, response);   
+  
+  if (received_message.text === 'mp4') {
+    attachmentsSendAPI(sender_psid, {
+      "attachment":{
+        "type":"image", 
+        "payload":{
+          "is_reusable": true,
+          "url":"https://facete.herokuapp.com/448.mp4"
+        }
+      }
+    })
+  }
 }
 
 function handlePostback(sender_psid, received_postback) {
@@ -277,6 +265,51 @@ function callSendAPI(sender_psid, response) {
   }, (err, res, body) => {
     if (!err) {
       console.log('message sent!')
+    } else {
+      console.error("Unable to send message:" + err);
+    }
+  }); 
+}
+// 附件上传api
+function attachmentsSendAPI(sender_psid, response) {
+  // Construct the message body
+  let request_body = {
+    "message": response
+  }
+
+  // Send the HTTP request to the Messenger Platform
+  request({
+    "uri": "https://graph.facebook.com/v9.0/me/message_attachments",
+    "qs": { "access_token": PAGE_ACCESS_TOKEN },
+    "method": "POST",
+    "json": request_body
+  }, (err, res, body) => {
+    callSendAPI(sender_psid, {
+      text: JSON.stringify(res)
+    })
+    if (!err) {
+      console.log('message sent!')
+      callSendAPI(sender_psid, {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "media",
+            "elements": [
+              {
+                "media_type": "video",
+                "attachment_id": res.attachment_id,
+                "buttons": [
+                    {
+                      "type": "web_url",
+                      "url": "https://facete.herokuapp.com",
+                      "title": "View Website",
+                    }
+                ]
+              }
+          ]
+          }
+        }
+      })
     } else {
       console.error("Unable to send message:" + err);
     }
