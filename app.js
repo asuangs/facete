@@ -115,35 +115,27 @@ function handleMessage(sender_psid, received_message) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
-      "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"generic",
-          "elements":[
-             {
-              "title":"Welcome!",
-              "image_url":attachment_url,
-              "subtitle":"We have the right hat for everyone.",
-              "default_action": {
-                "type": "web_url",
-                "url": "https://xitui.loca.lt/logo-white.png",
-                "messenger_extensions": false,
-                "webview_height_ratio": "tall",
-                "fallback_url": "https://xitui.loca.lt/"
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this the right picture?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": attachment_url,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
               },
-              "buttons":[
-                {
-                  "type":"web_url",
-                  "url":"https://xitui.loca.lt/",
-                  "title":"View Website"
-                },{
-                  "type":"postback",
-                  "title":"Start Chatting",
-                  "payload":"DEVELOPER_DEFINED_PAYLOAD"
-                }              
-              ]      
-            }
-          ]
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          }]
         }
       }
     }
