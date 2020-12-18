@@ -313,16 +313,6 @@ function attachmentsSendAPI(sender_psid, response) {
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
-    callSendAPI(sender_psid, {
-      text: '完成请求' + res.statusCode 
-    })
-    callSendAPI(sender_psid, {
-      text: '完成请求' + JSON.stringify(res)
-    })
-    callSendAPI(sender_psid, {
-      text: '完成请求' + JSON.stringify(body)
-    })
-    
     if (!err) {
       console.log('message sent!')
       callSendAPI(sender_psid, {
@@ -335,6 +325,26 @@ function attachmentsSendAPI(sender_psid, response) {
                 "media_type": "video",
                 "attachment_id": body.attachment_id,
                 "buttons": [
+                    {
+                      "type": "web_url",
+                      "url": "https://facete.herokuapp.com",
+                      "title": "View Website",
+                    },
+                    {
+                      "type": "web_url",
+                      "url": "https://facete.herokuapp.com",
+                      "title": "View Website",
+                    }
+                ]
+              },{
+                "media_type": "video",
+                "attachment_id": body.attachment_id,
+                "buttons": [
+                    {
+                      "type": "web_url",
+                      "url": "https://facete.herokuapp.com",
+                      "title": "View Website",
+                    },
                     {
                       "type": "web_url",
                       "url": "https://facete.herokuapp.com",
