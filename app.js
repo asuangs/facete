@@ -126,6 +126,15 @@ function handleMessage(sender_psid, received_message) {
       }
     }
     callSendAPI(sender_psid, response);   
+  } else if(received_message.text === 'location') {
+    response = {
+      "text":"Please share your location:",
+      "quick_replies":[
+        {
+          "content_type":"location",
+        }
+      ]
+    }
   } else if(received_message.text === 'list'){
     response = {
       "attachment": {
@@ -189,7 +198,7 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
-    callSendAPIList(sender_psid, response);   
+    callSendAPI(sender_psid, response);   
   } else if (received_message.text === 'photo') {
     // Get the URL of the message attachment
     // let attachment_url = received_message.attachments[0].payload.url;
