@@ -131,21 +131,6 @@ function handleMessage(sender_psid, received_message) {
           "top_element_style": "compact",
           "elements": [
             {
-              "title": "Classic T-Shirt Collection",
-              "subtitle": "See all our colors",
-              "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",          
-              "buttons": [
-                {
-                  "title": "View",
-                  "type": "web_url",
-                  "url": "https://peterssendreceiveapp.ngrok.io/collection",
-                  "messenger_extensions": true,
-                  "webview_height_ratio": "tall",
-                  "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
-                }
-              ]
-            },
-            {
               "title": "Classic White T-Shirt",
               "subtitle": "See all our colors",
               "default_action": {
@@ -155,28 +140,6 @@ function handleMessage(sender_psid, received_message) {
                 "webview_height_ratio": "tall"
               }
             },
-            {
-              "title": "Classic Blue T-Shirt",
-              "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
-              "subtitle": "100% Cotton, 200% Comfortable",
-              "default_action": {
-                "type": "web_url",
-                "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
-                "messenger_extensions": true,
-                "webview_height_ratio": "tall",
-                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-              },
-              "buttons": [
-                {
-                  "title": "Shop Now",
-                  "type": "web_url",
-                  "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
-                  "messenger_extensions": true,
-                  "webview_height_ratio": "tall",
-                  "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
-                }
-              ]        
-            }
           ],
            "buttons": [
             {
@@ -192,7 +155,7 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     response = {
-      "text": `You sent the message: "${received_message.text}". vedieo!`
+      "text": `You sent the message: "${received_message.text}". 111!`
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
