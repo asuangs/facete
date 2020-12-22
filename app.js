@@ -24,12 +24,13 @@ process.env.PAGE_ACCESS_TOKEN = 'EAAFeGS7P3ycBADCSfazfPYYCPSY7rtUAaLxZBR0Qthnbc2
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
 
+// const mode1 = require('./mode/mode1.js')
 const 
   request = require('request'),
   express = require('express'),
   body_parser = require('body-parser'),
   app = express().use(body_parser.json()); // creates express http server
-
+let modeVar = 'txt'
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
@@ -59,7 +60,7 @@ app.post('/webhook', (req, res) => {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);        
+        handleMessage(sender_psid, webhook_event.message);     
       } else if (webhook_event.postback) {
         
         handlePostback(sender_psid, webhook_event.postback);
@@ -103,120 +104,147 @@ app.get('/webhook', (req, res) => {
     }
   }
 });
-
+app.get('/public', (req, res) => {
+  
+  let type = req.query['type'];
+    
+  console.log(type)
+  if (type) {
+    modeVar = type
+    
+    res.status(200).send('200');
+    setTimeout(() => {
+      console.log(modeVar)
+    }, 10000)
+  } else {
+    res.sendStatus(403);      
+  }
+});
 function handleMessage(sender_psid, received_message) {
   let response;
-  
+  // if(received_message.text === 'quick') {
+  //   response = {
+  //     "text":"Please share your location:",
+  //     "quick_replies":[
+  //       {
+  //         "content_type":"user_phone_number",
+  //       },
+  //       {
+  //         "content_type":"user_email",
+  //       },
+  //       {
+  //         "content_type":"text",
+  //         "title": '按钮',
+  //         "payload": 'sss'
+  //       }
+  //     ]
+  //   }
+  //   callSendAPI(sender_psid, response, true);
+  // }
+
   // Checks if the message contains text
-  if (received_message.text === 'phone') {
-    response = {
-      "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"button",
-          "text":"Need further assistance? Talk to a representative",
-          "buttons":[
-            {
-              "type":"phone_number",
-              "title":"Call 15263567",
-              "payload":"+15105551234"
-            }
-          ]
-        }
-      }
-    }
-    callSendAPI(sender_psid, response);   
-  } else if(received_message.text === 'quick') {
-    response = {
-      "text":"Please share your location:",
-      "quick_replies":[
-        {
-          "content_type":"user_phone_number",
-        },
-        {
-          "content_type":"user_email",
-        },
-        {
-          "content_type":"text",
-          "title": '按钮',
-          "payload": 'sss'
-        }
-      ]
-    }
-    callSendAPI(sender_psid, response, true);
-  } else if(received_message.text === 'location') {
-    response = {
-      "text":"Please share your location:",
-      "quick_replies":[
-        {
-          "content_type":"location",
-        },
-      ]
-    }
-    callSendAPI(sender_psid, response, true);
-  } else if (received_message.text === 'photo') {
-    // Get the URL of the message attachment
-    // let attachment_url = received_message.attachments[0].payload.url;
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "1",
-            "image_url": 'https://facete.herokuapp.com/logo.png',
-            "buttons": [
+  if(modeVar == 'phone'){
+    if (received_message.text === 'phone') {
+      response = {
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"button",
+            "text":"Need further assistance? Talk to a representative",
+            "buttons":[
               {
-                "type":"web_url",
-                "url":"https://facete.herokuapp.com",
-                "title":"View Website"
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
+                "type":"phone_number",
+                "title":"请拨打电话",
+                "payload":"+15105551234"
               }
-            ],
-          },{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": 'https://facete.herokuapp.com/styles/female-work.jpg',
-            "buttons": [
-              {
-                "type":"web_url",
-                "url":"https://facete.herokuapp.com",
-                "title":"View Website"
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
+            ]
+          }
         }
       }
-    } 
-    callSendAPI(sender_psid, response); 
-  } else if (received_message.text === 'mp4') {
-    attachmentsSendAPI(sender_psid, {
-      "attachment":{
-        "type":"video",
-        "payload":{
-          "is_reusable": true,
-          "url":"https://facete.herokuapp.com/448.mp4"
-        }
+      callSendAPI(sender_psid, response);
+    } else if (received_message.text) { 
+      response = {
+        "text": `"${received_message.text}". 打电话按钮模板!`
       }
-    })
-  } else if (received_message.text) { 
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
+      callSendAPI(sender_psid, response); 
+    }
+  }
+
+  if(modeVar == 'photo'){
+    if (received_message.text === 'photo') {
+    
+      response = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "generic",
+            "elements": [{
+              "title": "1",
+              "image_url": 'https://facete.herokuapp.com/logo.png',
+              "buttons": [
+                {
+                  "type":"web_url",
+                  "url":"https://facete.herokuapp.com",
+                  "title":"View Website"
+                },
+                {
+                  "type": "postback",
+                  "title": "No!",
+                  "payload": "no",
+                }
+              ],
+            },{
+              "title": "Is this the right picture?",
+              "subtitle": "Tap a button to answer.",
+              "image_url": 'https://facete.herokuapp.com/styles/female-work.jpg',
+              "buttons": [
+                {
+                  "type":"web_url",
+                  "url":"https://facete.herokuapp.com",
+                  "title":"View Website"
+                },
+                {
+                  "type": "postback",
+                  "title": "No!",
+                  "payload": "no",
+                }
+              ],
+            }]
+          }
+        }
+      } 
+      callSendAPI(sender_psid, response); 
+    } else if (received_message.text) { 
+      response = {
+        "text": `"${received_message.text}". 图片模板!`
+      }
+      callSendAPI(sender_psid, response); 
+    }
+  }
+  if(modeVar == 'mp4'){
+    if (received_message.text === 'mp4') {
+      attachmentsSendAPI(sender_psid, {
+        "attachment":{
+          "type":"video",
+          "payload":{
+            "is_reusable": true,
+            "url":"https://facete.herokuapp.com/448.mp4"
+          }
+        }
+      })
+    } else if (received_message.text) { 
+      response = {
+        "text": `"${received_message.text}". MP4视频模板!`
+      }
+      callSendAPI(sender_psid, response); 
+    }
+  }
+  if(modeVar == 'txt'){
     response = {
-      "text": `You sent the message: "${received_message.text}". 111!`
+      "text": `"${received_message.text}". 文本对话模板!`
     }
     callSendAPI(sender_psid, response); 
-  } 
-  
+  }
 }
 
 function handlePostback(sender_psid, received_postback) {
@@ -260,33 +288,7 @@ if(bool){
     }
   }); 
 }
-// 列表模板
-function callSendAPIList(sender_psid, response) {
-  // Construct the message body
-  let request_body = {
-    "recipient": {
-      "id": sender_psid
-    },
-    "message": response
-  }
 
-  // Send the HTTP request to the Messenger Platform
-  request({
-    "uri": "https://graph.facebook.com/me/messages",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": request_body
-  }, (err, res, body) => {
-    callSendAPI(sender_psid, {
-      text: 'list完成请求'+JSON.stringify(body)
-    })
-    if (!err) {
-      console.log('message sent!')
-    } else {
-      console.error("Unable to send message:" + err);
-    }
-  }); 
-}
 // 附件上传api
 function attachmentsSendAPI(sender_psid, response) {
   // Construct the message body
