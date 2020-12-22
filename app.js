@@ -35,7 +35,7 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 app.use(express.static('public'));
 app.get('/index.html', function (req, res) { res.sendFile( __dirname + "/index.html" ); })
-app.get('/', function (req, res) { res.sendFile( __dirname + "/index.html" ); })
+app.get('/', function (req, res) { res.sendFile( __dirname + "/public/index.html" ); })
 // Accepts POST requests at /webhook endpoint
 app.post('/webhook', (req, res) => {  
 
