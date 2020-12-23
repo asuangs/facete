@@ -240,10 +240,33 @@ function handleMessage(sender_psid, received_message) {
     }
   }
   if(modeVar == 'txt'){
-    response = {
-      "text": `"${received_message.text}". 文本对话模板!`
+    if(received_message.text == 'map'){
+      let lat = 55
+      let long = 37
+      
+      response = {
+        "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "generic",
+            "elements": [
+              {
+                "title": "Your current location",
+                "image_url": "https://maps.googleapis.com/aps/api/staticmap?size=764x400&center="+lat+","+long+"&zoom=25&markers="+lat+","+long,
+                "item_url": "http://maps.apple.com/maps?q="+lat+","+long+"&z=16",
+              }
+            ]
+          }
+        }
+      }
+      callSendAPI(sender_psid, response); 
+    }else{
+      
+      response = {
+        "text": `"${received_message.text}". 1文本对话模板!`
+      }
+      callSendAPI(sender_psid, response); 
     }
-    callSendAPI(sender_psid, response); 
   }
 }
 
