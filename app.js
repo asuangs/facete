@@ -269,8 +269,8 @@ function handleMessage(sender_psid, received_message) {
             "elements": [
               {
                 "title": "Your current location",
-                "image_url": "https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=AIzaSyDd_Ch_qilgKUgZft4Y4VQYQPaHRrmXaak",
-                "item_url": "https://www.google.com/maps/place/Lumen+Field/@47.5954629,-122.3341714,17z/data=!4m5!3m4!1s0x54906aa3b9f1182b:0xa636cd513bba22dc!8m2!3d47.5951518!4d-122.3316394",
+                "image_url": "https://maps.googleapis.com/maps/api/staticmap?center=Williamsburg&zoom=13&size=400x400&key=AIzaSyDd_Ch_qilgKUgZft4Y4VQYQPaHRrmXaak",
+                "item_url": "https://www.google.com/maps/search/?api=1&query=Williamsburg",
               }
             ]
           }
@@ -280,7 +280,7 @@ function handleMessage(sender_psid, received_message) {
     }else{
       
       response = {
-        "text": `"${received_message.text}". 2文本对话模板!`
+        "text": `"${received_message.text}". 文本对话模板!`
       }
       callSendAPI(sender_psid, response); 
     }
