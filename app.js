@@ -268,14 +268,14 @@ function handleMessage(sender_psid, received_message) {
             "template_type": "generic",
             "elements": [
               {
-                "title": "Your current location",
+                "title": "Williamsburg location",
                 "image_url": "https://maps.googleapis.com/maps/api/staticmap?center=Williamsburg&zoom=13&size=400x400&key=AIzaSyDd_Ch_qilgKUgZft4Y4VQYQPaHRrmXaak",
-                // "item_url": "https://www.google.com/maps/search/?api=1&query=Williamsburg",
+                "item_url": "https://www.google.com/maps/search/?api=1&query=Williamsburg",
                 "buttons": [
                   {
                     "type":"web_url",
                     "url":"https://www.google.com/maps/search/?api=1&query=Williamsburg",
-                    "title":"map place"
+                    "title":"get to place"
                   }
                 ],
               }
