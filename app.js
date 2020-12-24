@@ -35,7 +35,7 @@ let modeVar = 'txt'
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 app.use(express.static('public'));
-app.get('/index.html', function (req, res) { res.sendFile( __dirname + "/index.html" ); })
+app.get('/main.html', function (req, res) { res.sendFile( __dirname + "/main.html" ); })
 app.get('/', function (req, res) { res.sendFile( __dirname + "/public/index.html" ); })
 // Accepts POST requests at /webhook endpoint
 app.post('/webhook', (req, res) => {  
@@ -241,9 +241,26 @@ function handleMessage(sender_psid, received_message) {
   }
   if(modeVar == 'txt'){
     if(received_message.text == 'map'){
-      let lat = 55
-      let long = 37
       
+      // messageData = {
+      //   "attachment": {
+      //     "type": "template",
+      //     "payload": {
+      //       "template_type": "generic",
+      //       "elements": [{
+      //         "title": 'Location Shared By Bot',
+      //         "subtitle": "Location Subtitle",
+      //         "image_url": "https://maps.googleapis.com/maps/api/staticmap?key=YOUR_GMAPS_TOKEN&markers=color:red|label:B|YOUR_LATITUDE,YOUR_LONGITUDE&size=360x360&zoom=13",
+      //         "default_action": {
+      //             "type": "web_url",
+      //             "url": "https://maps.googleapis.com/maps/api/staticmap?key=YOUR_GMAPS_TOKEN&markers=color:red%7Clabel:A%7YOUR_LATITUDE,YOUR_LONGITUDE&size=360x360&zoom=13",
+      //             "messenger_extensions": true,
+      //             "webview_height_ratio": "tall"
+      //           }
+      //       }]
+      //     }
+      //   }
+      // https://maps.googleapis.com/maps/api/staticmap?center=Williamsburg,Brooklyn,NY&zoom=13&size=400x400&markers=color:blue%7Clabel:S%7C11211%7C11206%7C11222&key=AIzaSyDd_Ch_qilgKUgZft4Y4VQYQPaHRrmXaak
       response = {
         "attachment": {
         "type": "template",
@@ -252,8 +269,8 @@ function handleMessage(sender_psid, received_message) {
             "elements": [
               {
                 "title": "Your current location",
-                "image_url": "https://maps.googleapis.com/aps/api/staticmap?size=764x400&center="+lat+","+long+"&zoom=25&markers="+lat+","+long,
-                "item_url": "http://maps.apple.com/maps?q="+lat+","+long+"&z=16",
+                "image_url": "https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=AIzaSyDd_Ch_qilgKUgZft4Y4VQYQPaHRrmXaak",
+                "item_url": "https://www.google.com/maps/place/Lumen+Field/@47.5954629,-122.3341714,17z/data=!4m5!3m4!1s0x54906aa3b9f1182b:0xa636cd513bba22dc!8m2!3d47.5951518!4d-122.3316394",
               }
             ]
           }
@@ -263,7 +280,7 @@ function handleMessage(sender_psid, received_message) {
     }else{
       
       response = {
-        "text": `"${received_message.text}". 1文本对话模板!`
+        "text": `"${received_message.text}". 2文本对话模板!`
       }
       callSendAPI(sender_psid, response); 
     }
