@@ -270,7 +270,7 @@ function handleMessage(sender_psid, received_message) {
               {
                 "title": "Your current location",
                 "image_url": "https://maps.googleapis.com/maps/api/staticmap?center=Williamsburg&zoom=13&size=400x400&key=AIzaSyDd_Ch_qilgKUgZft4Y4VQYQPaHRrmXaak",
-                "item_url": "https://www.google.com/maps/search/?api=1&query=Williamsburg",
+                // "item_url": "https://www.google.com/maps/search/?api=1&query=Williamsburg",
                 "buttons": [
                   {
                     "type":"web_url",
@@ -287,7 +287,7 @@ function handleMessage(sender_psid, received_message) {
     }else{
       
       response = {
-        "text": `"${received_message.text}". 文本对话模板!`
+        "text": `"${received_message.text}". s文本对话模板!`
       }
       callSendAPI(sender_psid, response); 
     }
