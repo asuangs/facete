@@ -20,17 +20,19 @@
  */
 
 'use strict';
-process.env.PAGE_ACCESS_TOKEN = 'EAAFeGS7P3ycBABOFrXfuUYfqv2G7j7t7ZAyHjHr9eu9k7ZBNinZAC4HGiE8l7lHDgYPXlm9AS0ZBAZC92I2q3F7nXZBMoKcet7JDSUtXM0wB313fZBshQHgqGYk3vREM3ZAQE5HUeclDeAXGEKeCH0TmPaEtZAz7kDmzab4wgEbtyuWVODUjMOUGB'
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+process.env.PAGE_ACCESS_TOKEN = 'EAAFeGS7P3ycBAAryp0ZBOZAWmogDZA9UuUT92CBJLVmKGOgte8mcqjXKcJhbAB6L7ABISkyEbSHO9N23UZB7V5ufXKgmLHymn4QZB1FclwllpKgQkd9ncETqmootJSlpBKYxcOxrWLC55gPgY12rWa3nl0FvYN8VzoXZAhJfsQRofcdFenxMtr'
+let PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
 
-// const mode1 = require('./mode/mode1.js')
+
 const 
   request = require('request'),
   express = require('express'),
   body_parser = require('body-parser'),
   app = express().use(body_parser.json()); // creates express http server
-let modeVar = 'txt'
+  let modeVar = 'txt'
+  let userList = []
+
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
@@ -287,7 +289,7 @@ function handleMessage(sender_psid, received_message) {
     }else{
       
       response = {
-        "text": `"${received_message.text}". s文本对话模板!`
+        "text": `"${received_message.text}". 0文本对话模板!`
       }
       callSendAPI(sender_psid, response); 
     }
@@ -323,7 +325,7 @@ if(bool){
 }
   // Send the HTTP request to the Messenger Platform
   request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
+    "uri": "https://graph.facebook.com/v9.0/me/messages",
     "qs": { "access_token": PAGE_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body
@@ -347,7 +349,7 @@ function attachmentsSendAPI(sender_psid, response) {
   })
   // Send the HTTP request to the Messenger Platform
   request({
-    "uri": "https://graph.facebook.com/v2.6/me/message_attachments",
+    "uri": "https://graph.facebook.com/v9.0/me/message_attachments",
     "qs": { "access_token": PAGE_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body
