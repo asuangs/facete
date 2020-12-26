@@ -31,7 +31,8 @@ const
   body_parser = require('body-parser'),
   app = express().use(body_parser.json()); // creates express http server
   let modeVar = 'txt'
-  let userList = []
+
+  let pageList = {}
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -102,7 +103,7 @@ app.get('/webhook', (req, res) => {
     
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
-      res.sendStatus(403);      
+      res.sendStatus(403);
     }
   }
 });
@@ -115,13 +116,27 @@ app.get('/public', (req, res) => {
     modeVar = type
     
     res.status(200).send('200');
-    setTimeout(() => {
-      console.log(modeVar)
-    }, 10000)
+    
   } else {
     res.sendStatus(403);      
   }
-});
+})
+app.get('/saveInfo', (req, res) => {
+  
+  let userid = req.query['userid'];
+  let page_token = req.query['page_token'];
+
+  if (userid) {
+    
+    pageList[userid] = page_token
+
+    res.status(200).send('200');
+    
+  } else {
+    res.sendStatus(403);      
+  }
+})
+
 function handleMessage(sender_psid, received_message) {
   let response;
   // if(received_message.text === 'quick') {
@@ -166,7 +181,7 @@ function handleMessage(sender_psid, received_message) {
       callSendAPI(sender_psid, response);
     } else if (received_message.text) { 
       response = {
-        "text": `"${received_message.text}". 打电话按钮模板!`
+        "text": `"${received_message.text}". 打电话按钮模板!`+ sender_psid
       }
       callSendAPI(sender_psid, response); 
     }
@@ -218,7 +233,7 @@ function handleMessage(sender_psid, received_message) {
       callSendAPI(sender_psid, response); 
     } else if (received_message.text) { 
       response = {
-        "text": `"${received_message.text}". 图片模板!`
+        "text": `"${received_message.text}". 图片模板!+`+ sender_psid
       }
       callSendAPI(sender_psid, response); 
     }
@@ -236,7 +251,7 @@ function handleMessage(sender_psid, received_message) {
       })
     } else if (received_message.text) { 
       response = {
-        "text": `"${received_message.text}". MP4视频模板!`
+        "text": `"${received_message.text}". MP4视频模板!`+ sender_psid
       }
       callSendAPI(sender_psid, response); 
     }
@@ -289,7 +304,7 @@ function handleMessage(sender_psid, received_message) {
     }else{
       
       response = {
-        "text": `"${received_message.text}". 99文本对话模板!`
+        "text": `"${received_message.text}". 90文本对话模板!`+ sender_psid
       }
       callSendAPI(sender_psid, response); 
     }
@@ -326,7 +341,7 @@ if(bool){
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v9.0/me/messages",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
+    "qs": { "access_token": pageList[sender_psid] },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
@@ -350,7 +365,7 @@ function attachmentsSendAPI(sender_psid, response) {
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v9.0/me/message_attachments",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
+    "qs": { "access_token": pageList[sender_psid] },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {

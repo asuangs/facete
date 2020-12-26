@@ -133,7 +133,7 @@ body {
   background-size: cover;
 }
 
-.h-ou[data-v-d025ffc8] {
+.h-ou[data-v-b1a0dde2] {
   background: #175fe6;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -144,9 +144,20 @@ body {
   padding: 30px 50px;
   color: #FFF;
 }
-.header a[data-v-d025ffc8] {
+.header a[data-v-b1a0dde2] {
   color: #FFF;
   margin-left: 20px;
+}
+.username[data-v-b1a0dde2] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.userlist > li[data-v-b1a0dde2] {
+  margin-bottom: 5px;
 }
 
 .searchs[data-v-c2490e86] {
