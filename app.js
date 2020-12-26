@@ -341,7 +341,7 @@ if(bool){
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v9.0/me/messages",
-    "qs": { "access_token": pageList[sender_psid] },
+    "qs": { "access_token": PAGE_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
@@ -365,7 +365,7 @@ function attachmentsSendAPI(sender_psid, response) {
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v9.0/me/message_attachments",
-    "qs": { "access_token": pageList[sender_psid] },
+    "qs": { "access_token": PAGE_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
