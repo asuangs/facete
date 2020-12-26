@@ -303,7 +303,7 @@ function handleMessage(sender_psid, received_message) {
     }else{
       
       response = {
-        "text": `"${received_message.text}". 93文本对话模板!`+ sender_psid + webhooks
+        "text": `"${received_message.text}". 93文本对话模板!`+ sender_psid
       }
       callSendAPI(sender_psid, response); 
     }
