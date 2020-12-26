@@ -33,7 +33,7 @@ const
   let modeVar = 'txt'
 
   let pageList = {}
-let webhooks = null
+  
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
@@ -45,7 +45,7 @@ app.post('/webhook', (req, res) => {
 
   // Parse the request body from the POST
   let body = req.body;
-  webhooks = JSON.stringify(req)
+  
   // Check the webhook event is from a Page subscription
   if (body.object === 'page') {
 
