@@ -54,16 +54,18 @@ app.post('/webhook', (req, res) => {
       // Gets the body of the webhook event
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
+      console.log(1);
 
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
+      let recipient_psid = webhook_event.recipient.id;
       console.log('Sender ID: ' + sender_psid);
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);     
+        handleMessage(sender_psid,recipient_psid, webhook_event.message);     
       } else if (webhook_event.postback) {
         
         handlePostback(sender_psid, webhook_event.postback);
@@ -126,9 +128,9 @@ app.get('/saveInfo', (req, res) => {
   let userid = req.query['userid'];
   let page_token = req.query['page_token'];
   if (userid) {
-    PAGE_ACCESS_TOKEN = page_token
+    // PAGE_ACCESS_TOKEN = page_token
     pageList[userid] = page_token
-
+    console.log(pageList)
     res.status(200).send('200');
     
   } else {
@@ -136,7 +138,7 @@ app.get('/saveInfo', (req, res) => {
   }
 })
 
-function handleMessage(sender_psid, received_message) {
+function handleMessage(sender_psid, recipient_psid, received_message) {
   let response;
   // if(received_message.text === 'quick') {
   //   response = {
@@ -155,7 +157,7 @@ function handleMessage(sender_psid, received_message) {
   //       }
   //     ]
   //   }
-  //   callSendAPI(sender_psid, response, true);
+  //   callSendAPI(sender_psid, response, recipient_psid, true);
   // }
 
   // Checks if the message contains text
@@ -177,12 +179,12 @@ function handleMessage(sender_psid, received_message) {
           }
         }
       }
-      callSendAPI(sender_psid, response);
+      callSendAPI(sender_psid, response, recipient_psid);
     } else if (received_message.text) { 
       response = {
         "text": `"${received_message.text}". 打电话按钮模板!`+ sender_psid
       }
-      callSendAPI(sender_psid, response); 
+      callSendAPI(sender_psid, response, recipient_psid); 
     }
   }
 
@@ -229,12 +231,12 @@ function handleMessage(sender_psid, received_message) {
           }
         }
       } 
-      callSendAPI(sender_psid, response); 
+      callSendAPI(sender_psid, response, recipient_psid); 
     } else if (received_message.text) { 
       response = {
         "text": `"${received_message.text}". 图片模板!+`+ sender_psid
       }
-      callSendAPI(sender_psid, response); 
+      callSendAPI(sender_psid, response, recipient_psid); 
     }
   }
   if(modeVar == 'mp4'){
@@ -252,7 +254,7 @@ function handleMessage(sender_psid, received_message) {
       response = {
         "text": `"${received_message.text}". MP4视频模板!`+ sender_psid
       }
-      callSendAPI(sender_psid, response); 
+      callSendAPI(sender_psid, response, recipient_psid); 
     }
   }
   if(modeVar == 'txt'){
@@ -299,13 +301,13 @@ function handleMessage(sender_psid, received_message) {
           }
         }
       }
-      callSendAPI(sender_psid, response); 
+      callSendAPI(sender_psid, response, recipient_psid); 
     }else{
       
       response = {
         "text": `"${received_message.text}". 93文本对话模板!`+ sender_psid
       }
-      callSendAPI(sender_psid, response); 
+      callSendAPI(sender_psid, response, recipient_psid); 
     }
   }
 }
@@ -323,10 +325,10 @@ function handlePostback(sender_psid, received_postback) {
     response = { "text": "Oops, try sending another image." }
   }
   // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
+  callSendAPI(sender_psid, response, recipient_psid);
 }
 
-function callSendAPI(sender_psid, response, bool) {
+function callSendAPI(sender_psid, response, recipient_psid, bool) {
   // Construct the message body
   let request_body = {
     "recipient": {
@@ -340,12 +342,12 @@ if(bool){
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v9.0/me/messages",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
+    "qs": { "access_token": pageList[recipient_psid] },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
     if (!err) {
-      console.log('message sent!')
+      console.log('message sent!1')
     } else {
       console.error("Unable to send message:" + err);
     }
