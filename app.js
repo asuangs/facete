@@ -97,7 +97,7 @@ app.get('/webhook', (req, res) => {
   if (mode && token) {
   
     // Check the mode and token sent are correct
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+    if (mode === 'subscribe' && token === pageList[challenge]) {
       
       // Respond with 200 OK and challenge token from the request
       console.log('WEBHOOK_VERIFIED');
@@ -131,7 +131,7 @@ app.get('/saveInfo', (req, res) => {
     // PAGE_ACCESS_TOKEN = page_token
     pageList[userid] = page_token
     console.log(pageList)
-    res.status(200).send('200');
+    res.status(200).send(userid);
     
   } else {
     res.sendStatus(403);      
