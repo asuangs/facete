@@ -20,11 +20,11 @@
  */
 
 'use strict';
-process.env.PAGE_ACCESS_TOKEN = 'EAAFeGS7P3ycBAIXIshi73LoPt56opLzpF2Fh8i1WmoQ0QdF8BfRUAwUZCHu2c4CTaj4d4i4QiBJyRRXmx0WTU0lvaWcZAPbabb4oikPS2rJBdX9cCMyItpCPj7UysiwAiHcv2A9YfUPtNgXkITBAOdDRPQ4p1ZCZAkzm1FAGtelTM1I4KYauAkW5A8CvEX7h6p0ZAgNQoJsicB7uIuCEx'
+process.env.PAGE_ACCESS_TOKEN = "EAAFeGS7P3ycBAPjZBgoGNhloRzLXeeTwm0a3CeYordaxm1Why2j38PQ7IHfYmtsM5nV9xtHPcZAe2vZCYUqLZAEZAO8sgEnsX05HX6YOPQVDSasmYJDdNmlMN8XCROBHfDSyD2Id60WnzHxEntGvbMFGowWifWgrUsv0LxIQX2XgukhXCab6kYbu5FQCADK7SOirZCYcFrcANGKicDylhL"
 let PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
 
-
+// https://w.dyxiu.cn/webhook.php?corpid=1034604370061806
 const 
   request = require('request'),
   express = require('express'),
@@ -289,7 +289,7 @@ function handleMessage(sender_psid, received_message) {
     }else{
       
       response = {
-        "text": `"${received_message.text}". 0文本对话模板!`
+        "text": `"${received_message.text}". 9文本对话模板!`
       }
       callSendAPI(sender_psid, response); 
     }
