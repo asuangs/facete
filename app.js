@@ -125,9 +125,8 @@ app.get('/saveInfo', (req, res) => {
   
   let userid = req.query['userid'];
   let page_token = req.query['page_token'];
-
   if (userid) {
-    
+    PAGE_ACCESS_TOKEN = page_token
     pageList[userid] = page_token
 
     res.status(200).send('200');
