@@ -20,7 +20,7 @@
  */
 
 'use strict';
-process.env.PAGE_ACCESS_TOKEN = "EAAFeGS7P3ycBAJWJ7cN3QTF06IFtqH0wooLTqkYo9l6oSg6as2pBOvcZAIPN9zWDMiBqPva778WI55QeeX3tjCIDAxXkiWtL8hNIkVG8UqMdYZCrKA3M6LNEcaPFIwPI8h6yjLrBx8QnxqhZCYAa05ZCZC7LVoOR0FtWmJjqZABEZCUbuCURDVO"
+process.env.PAGE_ACCESS_TOKEN = "EAAKTCiYYbMkBAEy6Wmr9JuuZBaxllbAMZBuD1JCx2n9aSxSGAqdG6HkZBZB9WzUxbQOhOZAgR2CtE2lHL1S4yiZAlxeEIKVb5EhT5XvxvhWfEFFlX085M17kjOVnqTjGIEp9KqE8OpGUZA5zZACrByrZCT0YDkwJ5zDGvgIsST81EkJJAm4iuUd9bKuWCw9CQ1iAZD"
 let PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
 
@@ -305,7 +305,7 @@ function handleMessage(sender_psid, recipient_psid, received_message) {
     }else{
       
       response = {
-        "text": `"${received_message.text}". 93文本对话模板!`+ sender_psid
+        "text": `"${received_message.text}". 94文本对话模板!`+ sender_psid
       }
       callSendAPI(sender_psid, response, recipient_psid); 
     }
