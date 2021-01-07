@@ -97,7 +97,9 @@ app.get('/webhook', (req, res) => {
   if (mode && token) {
   
     // Check the mode and token sent are correct
-    if (mode === 'subscribe' && token === pageList[challenge]) {
+    
+    // if (mode === 'subscribe' && token === pageList[challenge]) {
+      if (mode === 'subscribe' && token === VERIFY_TOKEN) {
       
       // Respond with 200 OK and challenge token from the request
       console.log('WEBHOOK_VERIFIED');
